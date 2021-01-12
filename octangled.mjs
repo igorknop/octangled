@@ -4,10 +4,27 @@ window.onload = () => {
   canvas.height = 400;
   document.body.appendChild(canvas);
   const ctx = canvas.getContext("2d");
-    drawBackground(ctx, canvas);
-    drawPlug(ctx, {x:200, y:200, t:"O"});
-    drawPlug(ctx, {x:300, y:200, t:"A"});
+  drawBackground(ctx, canvas);
+  const plugs = [{ x: 200, y: 200, t: "O" }];
+  genPlugs(plugs, 8);
+  plugs.forEach((p) => {
+    drawPlug(ctx, p);
+  });
 };
+
+function genPlugs(plugs, n) {
+  let t = 1;
+  const radius = 140;
+  for (let i = 0; i < n; i++) {
+    const plug = {
+      t: t++,
+      x: 200+radius * Math.cos((i * 2 * Math.PI) / n),
+      y: 200+radius * Math.sin((i * 2 * Math.PI) / n),
+    };
+    plugs.push(plug);
+  }
+  console.log(plugs);
+}
 
 function drawBackground(ctx, canvas) {
   ctx.fillStyle = "black";
