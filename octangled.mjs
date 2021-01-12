@@ -17,7 +17,11 @@ window.onload = () => {
   lines.forEach((l) => drawLine(ctx, l));
   const total = lines.reduce((t, c) => t + c.size, 0);
   ctx.font = "25px Impact";
-  ctx.fillText(`${Math.floor((total * 8) / 400)}cm ${lines.length} steps`, 10, 380);
+  ctx.fillText(
+    `${Math.floor((total * 8) / 400)}cm ${lines.length} steps`,
+    10,
+    380
+  );
 };
 
 function drawLine(ctx, l) {
@@ -76,7 +80,7 @@ function genPlugs(plugs, n) {
   const k = (2 * Math.PI) / n;
   for (let i = 0; i < n; i++) {
     const plug = {
-      t: t++,
+      t: String.fromCharCode(65 + i),
       x: 200 + radius * Math.cos(i * k + k / 2),
       y: 200 + radius * Math.sin(i * k + k / 2),
       steps: [],
@@ -105,6 +109,6 @@ function drawPlug(ctx, plug) {
   ctx.font = "10px Impact";
   ctx.fillStyle = "white";
   plug.steps.forEach((s, k) => {
-    ctx.fillText(`${s},`, plug.x + 10+ 12 * (1 + k), plug.y+34);
+    ctx.fillText(`${s},`, plug.x + 10 + 12 * (1 + k), plug.y + 34);
   });
 }
