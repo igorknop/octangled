@@ -4,18 +4,24 @@ window.onload = () => {
   canvas.height = 400;
   document.body.appendChild(canvas);
   const ctx = canvas.getContext("2d");
+    drawBackground(ctx, canvas);
+    drawPlug(ctx, {x:200, y:200, t:"O"});
+    drawPlug(ctx, {x:300, y:200, t:"A"});
+};
 
+function drawBackground(ctx, canvas) {
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
 
+function drawPlug(ctx, plug) {
   ctx.strokeStyle = "yellow";
   ctx.lineWidth = 5;
   ctx.beginPath();
-  ctx.ellipse(200,200, 14, 14, 0, 0, 2*Math.PI);
+  ctx.ellipse(plug.x, plug.y, 14, 14, 0, 0, 2 * Math.PI);
   ctx.stroke();
   ctx.closePath();
   ctx.fillStyle = "white";
   ctx.font = "20px Impact";
-  ctx.fillText( "O", 200+7, 200+34);
-
-};
+  ctx.fillText(plug.t, plug.x + 7, plug.y + 34);
+}
