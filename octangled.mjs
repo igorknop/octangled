@@ -15,11 +15,12 @@ window.onload = () => {
 function genPlugs(plugs, n) {
   let t = 1;
   const radius = 140;
+  const k = (2 * Math.PI) / n;
   for (let i = 0; i < n; i++) {
     const plug = {
       t: t++,
-      x: 200+radius * Math.cos((i * 2 * Math.PI) / n),
-      y: 200+radius * Math.sin((i * 2 * Math.PI) / n),
+      x: 200 + radius * Math.cos(i * k + k / 2),
+      y: 200 + radius * Math.sin(i * k + k / 2),
     };
     plugs.push(plug);
   }
