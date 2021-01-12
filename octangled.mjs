@@ -71,7 +71,6 @@ function genLines(plugs, lines, max) {
     psource = source;
     source = target;
   }
-  console.table(lines);
 }
 
 function genPlugs(plugs, n) {
@@ -87,7 +86,6 @@ function genPlugs(plugs, n) {
     };
     plugs.push(plug);
   }
-  console.log(plugs);
 }
 
 function drawBackground(ctx, canvas) {
