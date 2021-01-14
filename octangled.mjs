@@ -3,6 +3,7 @@ window.onload = () => {
   let txtMax = document.querySelector("#max");
   let txtCircles = document.querySelector("#circles");
   let txtPlugs = document.querySelector("#plugs");
+  let txtTimer = document.querySelector("#timer");
   let btnDraw = document.querySelector("button");
   canvas.width = 400;
   canvas.height = canvas.width;
@@ -11,7 +12,7 @@ window.onload = () => {
   let PLUGS = Number(txtPlugs.value);
   let CIRCLES = Number(txtCircles.value);
   let PPM = canvas.width / 90;
-  let timer = 60;
+  let timer = Number(txtTimer.value);
   requestAnimationFrame(step);
 
   let plugs = [
@@ -26,7 +27,8 @@ window.onload = () => {
     PLUGS = Number(txtPlugs.value);
     CIRCLES = Number(txtCircles.value);
     PPM = canvas.width / 90;
-
+    timer = Number(txtTimer.value);
+  
     genPlugs(plugs, PLUGS, CIRCLES);
     genLines(plugs, lines, 10 * PPM * (MAX - 4));
   });
@@ -64,7 +66,7 @@ window.onload = () => {
 
     ctx.font = "50px Impact";
 
-    ctx.fillStyle = `hsl(${timer/60*120}, 100%, 30%)`;
+    ctx.fillStyle = `hsl(${timer/Number(txtTimer.value)*120}, 100%, 30%)`;
     ctx.fillText(`${Math.round(timer)}`, 340, canvas.height - 40);
     t0 = t;
     requestAnimationFrame(step);

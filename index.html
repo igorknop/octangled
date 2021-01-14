@@ -8,9 +8,13 @@
 </head>
 <body style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
     <canvas></canvas>
-    <input type="number" inputmode="numeric" id="max" value="26"/>
-    <input type="number" inputmode="numeric" id="plugs" value="8"/>
-    <input type="number" inputmode="numeric" id="circles" value="1"/>
-    <button>Draw</button>
+    <details>
+        <summary>Options</summary>
+        <input type="number" inputmode="numeric" id="max" value="26" min="8"/>
+        <input type="number" inputmode="numeric" id="plugs" value="8" min="2"/>
+        <input type="number" inputmode="numeric" id="circles" value="1" min="1"/>
+        <input type="number" inputmode="numeric" id="timer" value="30" min="10"/>
+        <button>Draw</button>
+    </details>
 </body>
 </html>
