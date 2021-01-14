@@ -35,7 +35,8 @@ window.onload = () => {
   btnDraw.click();
 
   canvas.addEventListener("click", ()=>{
-    timer = 60;
+    timer = Number(txtTimer.value);
+
   });
 
   let t0;
