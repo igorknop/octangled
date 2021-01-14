@@ -11,7 +11,13 @@ window.onload = () => {
   let PLUGS = Number(txtPlugs.value);
   let CIRCLES = Number(txtCircles.value);
   let PPM = canvas.width / 90;
+  let timer = 60;
+  requestAnimationFrame(step);
 
+  const plugs = [
+    //  { x: 200, y: 200, t: "O" }
+  ];
+  const lines = [];
   btnDraw.addEventListener("click", (e) => {
     e.preventDefault();
     MAX = Number(txtMax.value);
@@ -19,19 +25,30 @@ window.onload = () => {
     CIRCLES = Number(txtCircles.value);
     PPM = canvas.width / 90;
 
-    drawBackground(ctx, canvas);
-    const plugs = [
-      //  { x: 200, y: 200, t: "O" }
-    ];
     genPlugs(plugs, PLUGS, CIRCLES);
-    const lines = [];
     genLines(plugs, lines, 10 * PPM * (MAX - 4));
+  });
+  btnDraw.click();
+
+  canvas.addEventListener("click", ()=>{
+    timer = 60;
+  });
+
+  let t0;
+  let dt;
+
+  function step(t) {
+    t0 = t0 ?? t;
+    dt = (t - t0) / 1000;
+    timer = Math.max(0, timer-dt);
+
+    drawBackground(ctx, canvas);
     plugs.forEach((p) => {
       drawPlug(ctx, p);
     });
     lines.forEach((l) => drawLine(ctx, l));
     const total = lines.reduce((t, c) => t + c.size, 0);
-    
+
     plugs.forEach((p) => {
       drawPlugTexts(ctx, p);
     });
@@ -40,11 +57,16 @@ window.onload = () => {
     ctx.fillText(
       `${Math.floor((total * PLUGS) / 400)}cm ${lines.length} steps`,
       10,
-      canvas.height-20
+      canvas.height - 20
     );
-  });
 
-  btnDraw.click();
+    ctx.font = "50px Impact";
+
+    ctx.fillStyle = `hsl(${timer/60*120}, 100%, 30%)`;
+    ctx.fillText(`${Math.round(timer)}`, 340, canvas.height - 40);
+    t0 = t;
+    requestAnimationFrame(step);
+  }
 
   function drawLine(ctx, l) {
     ctx.lineCap = "round";
@@ -122,7 +144,7 @@ window.onload = () => {
   }
 
   function drawPlug(ctx, plug) {
-    const PLUG_RADIUS = 15-CIRCLES*2;
+    const PLUG_RADIUS = 15 - CIRCLES * 2;
     ctx.strokeStyle = "orange";
     ctx.lineWidth = 8;
     ctx.beginPath();
@@ -136,7 +158,7 @@ window.onload = () => {
     ctx.closePath();
   }
   function drawPlugTexts(ctx, plug) {
-    const PLUG_RADIUS = 15-CIRCLES*2;
+    const PLUG_RADIUS = 15 - CIRCLES * 2;
     ctx.fillStyle = "black";
     ctx.font = "20px Impact";
     ctx.fillText(plug.t, plug.x + 7, plug.y + 34);
@@ -147,5 +169,4 @@ window.onload = () => {
       ctx.fillText(`${s}`, plug.x + 10 + 12 * (1 + k), plug.y + 34);
     });
   }
-
 };
