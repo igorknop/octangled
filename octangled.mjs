@@ -14,12 +14,14 @@ window.onload = () => {
   let timer = 60;
   requestAnimationFrame(step);
 
-  const plugs = [
+  let plugs = [
     //  { x: 200, y: 200, t: "O" }
   ];
-  const lines = [];
+  let lines = [];
   btnDraw.addEventListener("click", (e) => {
     e.preventDefault();
+    lines = [];
+    plugs = [];
     MAX = Number(txtMax.value);
     PLUGS = Number(txtPlugs.value);
     CIRCLES = Number(txtCircles.value);
@@ -139,7 +141,7 @@ window.onload = () => {
   }
 
   function drawBackground(ctx, canvas) {
-    ctx.fillStyle = " hsl(212, 100%, 75%)";
+    ctx.fillStyle = "hsl(212, 100%, 75%)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
