@@ -31,16 +31,17 @@ window.onload = () => {
     });
     lines.forEach((l) => drawLine(ctx, l));
     const total = lines.reduce((t, c) => t + c.size, 0);
-    ctx.font = "25px Impact";
-    ctx.fillText(
-      `${Math.floor((total * PLUGS) / 400)}cm ${lines.length} steps`,
-      10,
-      380
-    );
+    
     plugs.forEach((p) => {
       drawPlugTexts(ctx, p);
     });
 
+    ctx.font = "25px Impact";
+    ctx.fillText(
+      `${Math.floor((total * PLUGS) / 400)}cm ${lines.length} steps`,
+      10,
+      canvas.height-20
+    );
   });
 
   btnDraw.click();
