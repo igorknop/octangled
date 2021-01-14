@@ -37,6 +37,10 @@ window.onload = () => {
       10,
       380
     );
+    plugs.forEach((p) => {
+      drawPlugTexts(ctx, p);
+    });
+
   });
 
   btnDraw.click();
@@ -129,6 +133,9 @@ window.onload = () => {
     ctx.lineWidth = 4;
     ctx.stroke();
     ctx.closePath();
+  }
+  function drawPlugTexts(ctx, plug) {
+    const PLUG_RADIUS = 15-CIRCLES*2;
     ctx.fillStyle = "black";
     ctx.font = "20px Impact";
     ctx.fillText(plug.t, plug.x + 7, plug.y + 34);
@@ -139,4 +146,5 @@ window.onload = () => {
       ctx.fillText(`${s}`, plug.x + 10 + 12 * (1 + k), plug.y + 34);
     });
   }
+
 };
