@@ -5,6 +5,7 @@ window.onload = () => {
   let txtPlugs = document.querySelector("#plugs");
   let txtTimer = document.querySelector("#timer");
   let btnDraw = document.querySelector("button");
+  let chkSolution = document.querySelector("#solution");
   canvas.width = 400;
   canvas.height = canvas.width;
   const ctx = canvas.getContext("2d");
@@ -170,8 +171,10 @@ window.onload = () => {
     ctx.globalAlpha = 1.0;
     ctx.font = "10px Impact";
     ctx.fillStyle = "black";
-    plug.steps.forEach((s, k) => {
-      ctx.fillText(`${s}`, plug.x + 10 + 12 * (1 + k), plug.y + 34);
-    });
+    if(chkSolution.checked){
+      plug.steps.forEach((s, k) => {
+        ctx.fillText(`${s}`, plug.x + 10 + 12 * (1 + k), plug.y + 34);
+      });
+    }
   }
 };
