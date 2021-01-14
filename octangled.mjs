@@ -52,7 +52,8 @@ window.onload = () => {
     plugs.forEach((p) => {
       drawPlug(ctx, p);
     });
-    lines.forEach((l) => drawLine(ctx, l));
+    lines.filter(l=>l.top===false).forEach((l) => drawLine(ctx, l));
+    lines.filter(l=>l.top===true).forEach((l) => drawLine(ctx, l));
     const total = lines.reduce((t, c) => t + c.size, 0);
 
     plugs.forEach((p) => {
