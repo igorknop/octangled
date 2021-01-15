@@ -1,4 +1,6 @@
 window.onload = () => {
+  let bg = new Image();
+  bg.src = "./octangled.jpeg";
   let canvas = document.querySelector("canvas");
   let txtCard = document.querySelector("#cardsize");
   let txtMax = document.querySelector("#max");
@@ -81,19 +83,28 @@ window.onload = () => {
   }
 
   function drawLine(ctx, l) {
-    ctx.lineCap = "round";
-    ctx.lineWidth = 10;
-    if (l.top) {
-      ctx.strokeStyle = "white";
-    } else {
-      ctx.strokeStyle = "gray";
-      ctx.globalAlpha = 0.5;
-    }
     ctx.beginPath();
     ctx.moveTo(l.s.x, l.s.y);
     ctx.lineTo(l.t.x, l.t.y);
+
+    if (l.top) {
+    } else {
+      ctx.globalAlpha = 0.4;
+    }
+    ctx.lineCap = "round";
+    ctx.lineWidth = 14;
+    ctx.strokeStyle = "black";
     ctx.stroke();
-    ctx.closePath();
+    ctx.strokeStyle = "lightblue";
+    ctx.lineWidth = 10;
+    ctx.stroke();
+
+    // ctx.lineCap = "round";
+    // ctx.moveTo(l.s.x, l.s.y);
+    // ctx.lineTo(l.t.x, l.t.y);
+    // ctx.lineWidth = 10;
+    // ctx.fillStyle = "black";
+    // ctx.stroke();
     ctx.globalAlpha = 1.0;
   }
 
@@ -155,7 +166,9 @@ window.onload = () => {
 
   function drawBackground(ctx, canvas) {
     ctx.fillStyle = "hsl(212, 100%, 75%)";
+    ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bg, -10, -20, canvas.width, canvas.height);
   }
 
   function drawPlug(ctx, plug) {
@@ -174,6 +187,7 @@ window.onload = () => {
   }
   function drawPlugTexts(ctx, plug) {
     const PLUG_RADIUS = 15 - CIRCLES * 2;
+    ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.font = "20px Impact";
     ctx.fillText(plug.t, plug.x + 7, plug.y + 34);
@@ -185,5 +199,6 @@ window.onload = () => {
         ctx.fillText(`${s}`, plug.x + 10 + 12 * (1 + k), plug.y + 34);
       });
     }
+    ctx.closePath();
   }
 };
