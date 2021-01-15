@@ -7,6 +7,7 @@ window.onload = () => {
   let txtTimer = document.querySelector("#timer");
   let btnDraw = document.querySelector("button");
   let chkSolution = document.querySelector("#solution");
+  let chkBacks = document.querySelector("#backs");
   canvas.width = 400;
   canvas.height = canvas.width;
   const ctx = canvas.getContext("2d");
@@ -54,7 +55,9 @@ window.onload = () => {
     plugs.forEach((p) => {
       drawPlug(ctx, p);
     });
-    lines.filter((l) => l.top === false).forEach((l) => drawLine(ctx, l));
+    if (chkBacks.checked) {
+      lines.filter((l) => l.top === false).forEach((l) => drawLine(ctx, l));
+    }
     lines.filter((l) => l.top === true).forEach((l) => drawLine(ctx, l));
     const total = lines.reduce((t, c) => t + c.size, 0);
 
