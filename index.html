@@ -10,10 +10,11 @@
     <canvas></canvas>
     <details>
         <summary>Options</summary>
-        <input type="number" inputmode="numeric" id="max" value="26" min="8"/>
-        <input type="number" inputmode="numeric" id="plugs" value="8" min="2"/>
-        <input type="number" inputmode="numeric" id="circles" value="1" min="1"/>
-        <input type="number" inputmode="numeric" id="timer" value="30" min="10"/>
+        <input title="Card size in cm" type="number" inputmode="numeric" id="cardsize" value="8.0" min="8" step="0.01"/>
+        <input title="Max cord size in cm" type="number" inputmode="numeric" id="max" value="26" min="8"/>
+        <input title="Number of plugs" type="number" inputmode="numeric" id="plugs" value="8" min="2"/>
+        <input title="Number of circles" type="number" inputmode="numeric" id="circles" value="1" min="1"/>
+        <input title="Timer in seconds" type="number" inputmode="numeric" id="timer" value="30" min="10"/>
         <label >Solution <input type="checkbox" id="solution"/></label>      <button>Draw</button>
     </details>
 </body>

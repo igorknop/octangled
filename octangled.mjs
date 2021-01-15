@@ -1,5 +1,6 @@
 window.onload = () => {
   let canvas = document.querySelector("canvas");
+  let txtCard = document.querySelector("#cardsize");
   let txtMax = document.querySelector("#max");
   let txtCircles = document.querySelector("#circles");
   let txtPlugs = document.querySelector("#plugs");
@@ -9,10 +10,11 @@ window.onload = () => {
   canvas.width = 400;
   canvas.height = canvas.width;
   const ctx = canvas.getContext("2d");
+  let CARD_SIZE = Number(txtCard.value);
   let MAX = Number(txtMax.value);
   let PLUGS = Number(txtPlugs.value);
   let CIRCLES = Number(txtCircles.value);
-  let PPM = canvas.width / 90;
+  let PPM = canvas.width / (CARD_SIZE * 10);
   let timer = Number(txtTimer.value);
   requestAnimationFrame(step);
 
@@ -24,20 +26,20 @@ window.onload = () => {
     e.preventDefault();
     lines = [];
     plugs = [];
+    CARD_SIZE = Number(txtCard.value);
     MAX = Number(txtMax.value);
     PLUGS = Number(txtPlugs.value);
     CIRCLES = Number(txtCircles.value);
-    PPM = canvas.width / 90;
+    PPM = canvas.width / CARD_SIZE;
     timer = Number(txtTimer.value);
-  
+
     genPlugs(plugs, PLUGS, CIRCLES);
-    genLines(plugs, lines, 10 * PPM * (MAX - 4));
+    genLines(plugs, lines, (MAX - 4) * PPM);
   });
   btnDraw.click();
 
-  canvas.addEventListener("click", ()=>{
+  canvas.addEventListener("click", () => {
     timer = Number(txtTimer.value);
-
   });
 
   let t0;
@@ -46,14 +48,14 @@ window.onload = () => {
   function step(t) {
     t0 = t0 ?? t;
     dt = (t - t0) / 1000;
-    timer = Math.max(0, timer-dt);
+    timer = Math.max(0, timer - dt);
 
     drawBackground(ctx, canvas);
     plugs.forEach((p) => {
       drawPlug(ctx, p);
     });
-    lines.filter(l=>l.top===false).forEach((l) => drawLine(ctx, l));
-    lines.filter(l=>l.top===true).forEach((l) => drawLine(ctx, l));
+    lines.filter((l) => l.top === false).forEach((l) => drawLine(ctx, l));
+    lines.filter((l) => l.top === true).forEach((l) => drawLine(ctx, l));
     const total = lines.reduce((t, c) => t + c.size, 0);
 
     plugs.forEach((p) => {
@@ -62,14 +64,14 @@ window.onload = () => {
 
     ctx.font = "25px Impact";
     ctx.fillText(
-      `${Math.floor((total * PLUGS) / 400)}cm ${lines.length} steps`,
+      `${Math.floor(total / PPM)}cm in ${lines.length} steps`,
       10,
       canvas.height - 20
     );
 
     ctx.font = "50px Impact";
 
-    ctx.fillStyle = `hsl(${timer/Number(txtTimer.value)*120}, 100%, 30%)`;
+    ctx.fillStyle = `hsl(${(timer / Number(txtTimer.value)) * 120}, 100%, 30%)`;
     ctx.fillText(`${Math.round(timer)}`, 340, canvas.height - 40);
     t0 = t;
     requestAnimationFrame(step);
@@ -109,6 +111,9 @@ window.onload = () => {
         Math.pow(plugs[source].x - plugs[target].x, 2) +
           Math.pow(plugs[source].y - plugs[target].y, 2)
       );
+      if (total + dist > max) {
+        break;
+      }
 
       lines.push({
         s: plugs[source],
@@ -172,7 +177,7 @@ window.onload = () => {
     ctx.globalAlpha = 1.0;
     ctx.font = "10px Impact";
     ctx.fillStyle = "black";
-    if(chkSolution.checked){
+    if (chkSolution.checked) {
       plug.steps.forEach((s, k) => {
         ctx.fillText(`${s}`, plug.x + 10 + 12 * (1 + k), plug.y + 34);
       });
